@@ -1,84 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Submit</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Request</title>
     <style>
-        body { font-family: sans-serif; padding: 30px; text-align: center; background: #fafafa; color: #333; }
-        .links { margin-bottom: 20px; }
-        .links a { color: #5865F2; text-decoration: none; font-weight: bold; }
-        .fwrp-btn { background: #333; color: #fff !important; padding: 4px 8px; border-radius: 3px; font-size: 12px; margin-left: 10px; }
-        .box { display: inline-flex; flex-direction: column; gap: 10px; width: 350px; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 5px; text-align: left; }
-        input, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-family: inherit; }
-        button#s { padding: 10px; background: #5865F2; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; }
-        .presets { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
-        .p-btn { font-size: 11px; padding: 5px; background: #f0f0f0; border: 1px solid #ddd; cursor: pointer; border-radius: 3px; text-align: left; }
-        .p-btn:hover { background: #e0e0e0; }
-        button:disabled { opacity: 0.5; }
+        :root {
+            --primary: #5865F2;
+            --primary-hover: #4752C4;
+            --bg: #f4f4f5;
+            --text: #2e3338;
+            --border: #e3e5e8;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 40px 20px; 
+            text-align: center; 
+            background: var(--bg); 
+            color: var(--text); 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+        }
+
+        .links { 
+            margin-bottom: 30px; 
+            font-size: 14px;
+        }
+
+        .links a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .fwrp-btn { 
+            background: #23272a; 
+            color: #fff !important; 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            font-size: 12px; 
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .box { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            width: 100%;
+            max-width: 400px; 
+            background: #fff; 
+            padding: 30px; 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: left; 
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #4f5660;
+            text-transform: uppercase;
+        }
+
+        input, textarea { 
+            padding: 10px; 
+            border: 1px solid var(--border); 
+            border-radius: 4px; 
+            font-family: inherit; 
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button#submit-btn { 
+            padding: 12px; 
+            background: var(--primary); 
+            color: #fff; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 15px;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        button#submit-btn:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        button:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed;
+        }
+
+        .presets { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-top: 5px; 
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .presets strong {
+            font-size: 13px;
+            color: #4f5660;
+        }
+
+        .p-btn { 
+            font-size: 12px; 
+            padding: 8px; 
+            background: #fff; 
+            border: 1px solid var(--border); 
+            cursor: pointer; 
+            border-radius: 4px; 
+            text-align: left; 
+            transition: background 0.2s;
+        }
+
+        .p-btn:hover { 
+            background: #e3e5e8; 
+        }
     </style>
 </head>
 <body>
 
     <div class="links">
-        <span>Join discord server where shit gets recieved: </span>
-        <a href="https://discord.gg/qwcBsw8s6P" target="_blank">.gg/qwcBsw8s6P</a>
-        <br><br>
-        <a href="https://discord.com/terms" target="_blank" class="fwrp-btn">Please send your messages to be under the discord TOS</a>
+        <span>Join the Discord server where messages get received: </span>
+        <a href="https://discord.gg/qwcBsw8s6P" target="_blank">discord.gg/qwcBsw8s6P</a>
+        <br>
+        <a href="https://discord.com/terms" target="_blank" class="fwrp-btn">Please ensure your messages follow Discord TOS</a>
     </div>
 
-    <div class="box">
-        <label>Username (preffer user id)</label>
-        <input type="text" id="u" placeholder="Your name/id">
+    <form class="box" id="webhook-form">
+        <div class="input-group">
+            <label for="username">Username (Prefer User ID)</label>
+            <input type="text" id="username" placeholder="Your name or ID" required>
+        </div>
         
-        <label>Title</label>
-        <input type="text" id="t" placeholder="Subject">
+        <div class="input-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Subject" required>
+        </div>
         
-        <label>Description</label>
-        <textarea id="d" placeholder="Message content..." rows="5"></textarea>
-
-        <div class="presets">
-            <strong>Presents:</strong>
-            <button class="p-btn" onclick="setD('Dear neighbor, I noticed a slight issue with your property. Could we discuss this calmly?')">Neighbor: Calm</button>
-            <button class="p-btn" onclick="setD('LISTEN NEIGHBOR, FIX YOUR STUFF OR THERE WILL BE CONSEQUENCES. I AM NOT ASKING AGAIN.')">Neighbor: Aggressive</button>
-            <button class="p-btn" onclick="setD('OFFICIAL NOTICE: This is a formal letter regarding your plumbing. Be advised that we are sending a team to destroy your pipes immediately.')">Official: Destroy Pipes</button>
+        <div class="input-group">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Message content..." rows="5" required></textarea>
         </div>
 
-        <button id="s">Send</button>
-    </div>
+        <div class="presets">
+            <strong>Presets:</strong>
+            <button type="button" class="p-btn" data-msg="Dear neighbor, I noticed a slight issue with your property. Could we discuss this calmly?">Neighbor: Calm</button>
+            <button type="button" class="p-btn" data-msg="LISTEN NEIGHBOR, FIX YOUR STUFF OR THERE WILL BE CONSEQUENCES. I AM NOT ASKING AGAIN.">Neighbor: Aggressive</button>
+            <button type="button" class="p-btn" data-msg="OFFICIAL NOTICE: This is a formal letter regarding your plumbing. Be advised that we are sending a team to destroy your pipes immediately.">Official: Destroy Pipes</button>
+        </div>
+
+        <button type="submit" id="submit-btn">Send</button>
+    </form>
 
     <script>
-        const btn = document.querySelector('#s');
+        const form = document.getElementById('webhook-form');
+        const btn = document.getElementById('submit-btn');
+        const descInput = document.getElementById('description');
+        const presetBtns = document.querySelectorAll('.p-btn');
+        
         const url = "https://discord-proxy.stelies2020.workers.dev";
 
-        function setD(val) {
-            document.querySelector('#d').value = val;
-        }
+        // Handle Presets via data attributes
+        presetBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                descInput.value = button.getAttribute('data-msg');
+            });
+        });
 
-        btn.onclick = async () => {
+        // Handle Form Submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevents the page from refreshing on submit
+
             const data = {
-                username: document.querySelector('#u').value.trim(),
-                title: document.querySelector('#t').value.trim(),
-                description: document.querySelector('#d').value.trim()
+                username: document.getElementById('username').value.trim(),
+                title: document.getElementById('title').value.trim(),
+                description: descInput.value.trim()
             };
 
-            if (!data.username || !data.title || !data.description) return;
-
             btn.disabled = true;
-            btn.innerText = "...";
+            btn.innerText = "Sending...";
 
             try {
-                await fetch(url, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                document.querySelectorAll('input, textarea').forEach(i => i.value = "");
-                btn.innerText = "Sent";
-            } catch (e) {
-                btn.innerText = "Error";
+                
+                if (response.ok) {
+                    form.reset(); // Clear all inputs
+                    btn.innerText = "Sent Successfully!";
+                } else {
+                    btn.innerText = "Failed to Send";
+                }
+            } catch (error) {
+                btn.innerText = "Error Occurred";
             } finally {
-                setTimeout(() => { btn.disabled = false; btn.innerText = "Send"; }, 2000);
+                setTimeout(() => { 
+                    btn.disabled = false; 
+                    btn.innerText = "Send"; 
+                }, 2500);
             }
-        };
+        });
     </script>
 </body>
 </html>
