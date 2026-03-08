@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit</title>
+    <style>
+        body { font-family: sans-serif; padding: 30px; text-align: center; background: #fafafa; color: #333; }
+        .links { margin-bottom: 20px; }
+        .links a { color: #5865F2; text-decoration: none; font-weight: bold; }
+        .fwrp-btn { background: #333; color: #fff !important; padding: 4px 8px; border-radius: 3px; font-size: 12px; margin-left: 10px; }
+        .box { display: inline-flex; flex-direction: column; gap: 10px; width: 350px; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 5px; text-align: left; }
+        input, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-family: inherit; }
+        button#s { padding: 10px; background: #5865F2; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; }
+        .presets { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+        .p-btn { font-size: 11px; padding: 5px; background: #f0f0f0; border: 1px solid #ddd; cursor: pointer; border-radius: 3px; text-align: left; }
+        .p-btn:hover { background: #e0e0e0; }
+        button:disabled { opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+    <div class="links">
+        <span>Join discord server where shit gets recieved: </span>
+        <a href="https://discord.gg/zh8XsQgwVJ" target="_blank">.gg/zh8XsQgwVJ</a>
+        <br><br>
+        <a href="https://discord.com/terms" target="_blank" class="fwrp-btn">Please send your messages to be under the discord TOS</a>
+    </div>
+
+    <div class="box">
+        <label>Username (preffer user id)</label>
+        <input type="text" id="u" placeholder="Your name/id">
+        
+        <label>Title</label>
+        <input type="text" id="t" placeholder="Subject">
+        
+        <label>Description</label>
+        <textarea id="d" placeholder="Message content..." rows="5"></textarea>
+
+        <div class="presets">
+            <strong>Presents:</strong>
+            <button class="p-btn" onclick="setD('Dear neighbor, I noticed a slight issue with your property. Could we discuss this calmly?')">Neighbor: Calm</button>
+            <button class="p-btn" onclick="setD('LISTEN NEIGHBOR, FIX YOUR STUFF OR THERE WILL BE CONSEQUENCES. I AM NOT ASKING AGAIN.')">Neighbor: Aggressive</button>
+            <button class="p-btn" onclick="setD('OFFICIAL NOTICE: This is a formal letter regarding your plumbing. Be advised that we are sending a team to destroy your pipes immediately.')">Official: Destroy Pipes</button>
+        </div>
+
+        <button id="s">Send</button>
+    </div>
+
+    <script>
+        const btn = document.querySelector('#s');
+        const url = "https://discord-proxy.stelies2020.workers.dev";
+
+        function setD(val) {
+            document.querySelector('#d').value = val;
+        }
+
+        btn.onclick = async () => {
+            const data = {
+                username: document.querySelector('#u').value.trim(),
+                title: document.querySelector('#t').value.trim(),
+                description: document.querySelector('#d').value.trim()
+            };
+
+            if (!data.username || !data.title || !data.description) return;
+
+            btn.disabled = true;
+            btn.innerText = "...";
+
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                document.querySelectorAll('input, textarea').forEach(i => i.value = "");
+                btn.innerText = "Sent";
+            } catch (e) {
+                btn.innerText = "Error";
+            } finally {
+                setTimeout(() => { btn.disabled = false; btn.innerText = "Send"; }, 2000);
+            }
+        };
+    </script>
+</body>
+</html>
