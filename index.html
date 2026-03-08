@@ -3,163 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Request</title>
+    <title>Submit</title>
     <style>
         :root {
-            --primary: #5865F2;
-            --primary-hover: #4752C4;
-            --bg: #f4f4f5;
-            --text: #2e3338;
-            --border: #e3e5e8;
+            --brand: #5865F2;
+            --brand-hover: #4752C4;
+            --bg-base: #202225;
+            --bg-panel: #36393f;
+            --bg-input: #40444b;
+            --text-normal: #dcddde;
+            --text-muted: #72767d;
+            --text-header: #ffffff;
+            --danger: #ed4245;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            padding: 40px 20px; 
-            text-align: center; 
-            background: var(--bg); 
-            color: var(--text); 
-            margin: 0;
+            font-family: 'gg sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-normal); 
             display: flex;
             flex-direction: column;
             align-items: center;
-        
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .links { 
+        .header-links { 
             margin-bottom: 30px; 
-            font-size: 14px;
+            text-align: center;
+            background: var(--bg-panel);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .links a { 
-            color: var(--primary); 
+        .header-links span {
+            font-size: 15px;
+            color: var(--text-header);
+        }
+
+        .header-links a.discord-link { 
+            color: var(--brand); 
             text-decoration: none; 
-            font-weight: 600; 
+            font-weight: bold; 
             transition: color 0.2s;
         }
 
-        .links a:hover {
+        .header-links a.discord-link:hover {
             text-decoration: underline;
+            color: var(--brand-hover);
         }
 
         .fwrp-btn { 
+            display: inline-block;
             background: #23272a; 
-            color: #fff !important; 
-            padding: 6px 12px; 
+            color: var(--text-muted); 
+            padding: 8px 12px; 
             border-radius: 4px; 
             font-size: 12px; 
-            display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
+            text-decoration: none;
+            border: 1px solid #23272a;
+            transition: all 0.2s;
+        }
+
+        .fwrp-btn:hover {
+            color: var(--text-normal);
+            border-color: var(--text-muted);
         }
 
         .box { 
             display: flex; 
             flex-direction: column; 
-            gap: 15px; 
+            gap: 20px; 
             width: 100%;
-            max-width: 400px; 
-            background: #fff; 
+            max-width: 480px; 
+            background: var(--bg-panel); 
             padding: 30px; 
-            border: 1px solid var(--border); 
             border-radius: 8px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: left; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
         }
 
         label {
             font-size: 12px;
             font-weight: 700;
-            color: #4f5660;
+            color: #8e9297;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input, textarea { 
-            padding: 10px; 
-            border: 1px solid var(--border); 
+            padding: 12px; 
+            background-color: var(--bg-input);
+            color: var(--text-normal);
+            border: 1px solid transparent; 
             border-radius: 4px; 
             font-family: inherit; 
-            font-size: 14px;
+            font-size: 15px;
             transition: border-color 0.2s;
+            resize: vertical;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--text-muted);
         }
 
         input:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--brand);
         }
 
-        button#submit-btn { 
-            padding: 12px; 
-            background: var(--primary); 
-            color: #fff; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 15px;
-            transition: background 0.2s;
-            margin-top: 10px;
+        .presents-section {
+            background: #2f3136;
+            padding: 15px;
+            border-radius: 6px;
         }
 
-        button#submit-btn:hover:not(:disabled) {
-            background: var(--primary-hover);
-        }
-
-        button:disabled { 
-            opacity: 0.6; 
-            cursor: not-allowed;
+        .presents-section strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-header);
+            font-size: 14px;
         }
 
         .presets { 
-            display: flex; 
-            flex-direction: column; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
             gap: 8px; 
-            margin-top: 5px; 
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .presets strong {
-            font-size: 13px;
-            color: #4f5660;
         }
 
         .p-btn { 
             font-size: 12px; 
             padding: 8px; 
-            background: #fff; 
-            border: 1px solid var(--border); 
+            background: var(--bg-input); 
+            color: var(--text-normal);
+            border: 1px solid transparent; 
             cursor: pointer; 
             border-radius: 4px; 
-            text-align: left; 
-            transition: background 0.2s;
+            text-align: center; 
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .p-btn:hover { 
-            background: #e3e5e8; 
+            background: #4f545c; 
+        }
+
+        button#submit-btn { 
+            padding: 14px; 
+            background: var(--brand); 
+            color: #fff; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 5px;
+        }
+
+        button#submit-btn:hover:not(:disabled) {
+            background: var(--brand-hover);
+        }
+
+        button#submit-btn:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        button:disabled { 
+            opacity: 0.5; 
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
-    <div class="links">
-        <span>Join the Discord server where messages get received: </span>
-        <a href="https://discord.gg/qwcBsw8s6P" target="_blank">discord.gg/qwcBsw8s6P</a>
+    <div class="header-links">
+        <span>Join discord server where shit gets recieved: </span>
+        <a href="https://discord.gg/qwcBsw8s6P" target="_blank" class="discord-link">.gg/qwcBsw8s6P</a>
         <br>
-        <a href="https://discord.com/terms" target="_blank" class="fwrp-btn">Please ensure your messages follow Discord TOS</a>
+        <a href="https://discord.com/terms" target="_blank" class="fwrp-btn">Please send your messages to be under the discord TOS</a>
     </div>
 
     <form class="box" id="webhook-form">
         <div class="input-group">
-            <label for="username">Username (Prefer User ID)</label>
-            <input type="text" id="username" placeholder="Your name or ID" required>
+            <label for="username">Username (preffer user id)</label>
+            <input type="text" id="username" placeholder="Your name/id" required>
         </div>
         
         <div class="input-group">
@@ -169,14 +213,19 @@
         
         <div class="input-group">
             <label for="description">Description</label>
-            <textarea id="description" placeholder="Message content..." rows="5" required></textarea>
+            <textarea id="description" placeholder="Message content... (vibecoded the remake because ihy)" rows="4" required></textarea>
         </div>
 
-        <div class="presets">
-            <strong>Presets:</strong>
-            <button type="button" class="p-btn" data-msg="Dear neighbor, I noticed a slight issue with your property. Could we discuss this calmly?">Neighbor: Calm</button>
-            <button type="button" class="p-btn" data-msg="LISTEN NEIGHBOR, FIX YOUR STUFF OR THERE WILL BE CONSEQUENCES. I AM NOT ASKING AGAIN.">Neighbor: Aggressive</button>
-            <button type="button" class="p-btn" data-msg="OFFICIAL NOTICE: This is a formal letter regarding your plumbing. Be advised that we are sending a team to destroy your pipes immediately.">Official: Destroy Pipes</button>
+        <div class="presents-section">
+            <strong>Presents:</strong>
+            <div class="presets">
+                <button type="button" class="p-btn" data-msg="Dear neighbor, I noticed a slight issue with your property. Could we discuss this calmly?">Neighbor: Calm</button>
+                <button type="button" class="p-btn" data-msg="LISTEN NEIGHBOR, FIX YOUR STUFF OR THERE WILL BE CONSEQUENCES. I AM NOT ASKING AGAIN.">Neighbor: Aggressive</button>
+                <button type="button" class="p-btn" data-msg="OFFICIAL NOTICE: This is a formal letter regarding your plumbing. Be advised that we are sending a team to destroy your pipes immediately.">Official: Destroy Pipes</button>
+                <button type="button" class="p-btn" data-msg="DO NOT MOW YOUR LAWN AT 6 AM. I HAVE PURCHASED A MEGAPHONE AND AM NOT AFRAID TO USE IT.">Neighbor: Megaphone</button>
+                <button type="button" class="p-btn" data-msg="I am currently bypassing your mainframe. Your IP is 127.0.0.1. Say goodbye to your robux.">Hacker: Mainframe</button>
+                <button type="button" class="p-btn" data-msg="I saw what you did in the woods. Leave the cheese on the porch at midnight or else.">Cryptid: Warning</button>
+            </div>
         </div>
 
         <button type="submit" id="submit-btn">Send</button>
@@ -190,16 +239,17 @@
         
         const url = "https://discord-proxy.stelies2020.workers.dev";
 
-        // Handle Presets via data attributes
         presetBtns.forEach(button => {
             button.addEventListener('click', () => {
                 descInput.value = button.getAttribute('data-msg');
+                // Give a little visual feedback when preset is clicked
+                button.style.transform = "scale(0.95)";
+                setTimeout(() => button.style.transform = "scale(1)", 100);
             });
         });
 
-        // Handle Form Submission
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevents the page from refreshing on submit
+            e.preventDefault(); 
 
             const data = {
                 username: document.getElementById('username').value.trim(),
@@ -209,6 +259,7 @@
 
             btn.disabled = true;
             btn.innerText = "Sending...";
+            btn.style.background = "#4f545c";
 
             try {
                 const response = await fetch(url, {
@@ -218,18 +269,22 @@
                 });
                 
                 if (response.ok) {
-                    form.reset(); // Clear all inputs
-                    btn.innerText = "Sent Successfully!";
+                    form.reset(); 
+                    btn.innerText = "Sent!";
+                    btn.style.background = "#3ba55c"; // Discord success green
                 } else {
-                    btn.innerText = "Failed to Send";
+                    btn.innerText = "Error";
+                    btn.style.background = "var(--danger)";
                 }
             } catch (error) {
-                btn.innerText = "Error Occurred";
+                btn.innerText = "Failed";
+                btn.style.background = "var(--danger)";
             } finally {
                 setTimeout(() => { 
                     btn.disabled = false; 
                     btn.innerText = "Send"; 
-                }, 2500);
+                    btn.style.background = "var(--brand)";
+                }, 2000);
             }
         });
     </script>
